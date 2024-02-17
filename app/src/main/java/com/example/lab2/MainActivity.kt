@@ -9,9 +9,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,8 +36,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MyScreen()
-{
+fun MyScreen() {
+    var counter by remember { mutableStateOf(1) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,14 +54,19 @@ fun MyScreen()
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Button(onClick = {}
-            ) {
-                Text (text = "-1")
+            Button(onClick = {
+                if (counter > 1) {
+                    counter--
+                }
+            }) {
+                Text(text = "-1")
             }
-            Text(text = "Counter: 1",
-                fontWeight = FontWeight.Bold)
-            Button(onClick = {}) {
-                Text (text = "+1")
+            Text(
+                text = "Counter: ${counter}",
+                fontWeight = FontWeight.Bold
+            )
+            Button(onClick = { counter++ }) {
+                Text(text = "+1")
             }
         }
     }
